@@ -1,6 +1,6 @@
 import {includes} from 'lodash';
 import {useMutation} from '@apollo/client';
-import {COMPLETE_TASK, GET_TASKS, UPDATE_TASK} from './queries';
+import {COMPLETE_TASK, GET_COMPLETED_TASKS, GET_TASKS, UPDATE_TASK} from './queries';
 import {useState} from 'react';
 import {Button} from 'react-bootstrap';
 import StoryPointsIndicator from './StoryPointsIndicator';
@@ -9,11 +9,15 @@ function CompleteTaskButton({ task: { id } }) {
   const [completeTask] = useMutation(COMPLETE_TASK, {
     update(cache, { data: { completeTask } }) {
       const tasks = cache.readQuery({ query: GET_TASKS });
+      const completedTasks = cache.readQuery({ query: GET_COMPLETED_TASKS });
 
       cache.modify({
         fields: {
           tasks() {
             return tasks.tasks.filter((task) => task?.id !== completeTask.task?.id);
+          },
+          completedTasks() {
+            return [...completedTasks.completedTasks, completeTask.task];
           }
         }
       });

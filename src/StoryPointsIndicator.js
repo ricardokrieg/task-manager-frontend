@@ -11,7 +11,7 @@ export default function StoryPointsIndicator({ task: { tags } }) {
 
   const badges = [];
   for (let i= 0; i < storyPoints(tags); i++) {
-    badges.push(<span style={{ width: 10, height: 10, marginRight: 2 }} className='bg-danger rounded-circle'></span>);
+    badges.push(<span key={i} style={{ width: 10, height: 10, marginRight: 2 }} className='bg-danger rounded-circle'></span>);
   }
 
   return (

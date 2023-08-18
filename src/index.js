@@ -8,7 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3070/graphql',
+  uri: 'http://localhost:3074/graphql',
   cache: new InMemoryCache(),
 });
 
