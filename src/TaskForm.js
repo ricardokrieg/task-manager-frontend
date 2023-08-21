@@ -39,7 +39,7 @@ export default function TaskForm() {
   }
 
   return (
-    <div className='fixed-bottom p-5 bg-white'>
+    <div className='p-5 bg-white'>
       <form className='d-flex justify-content-center align-items-center mb-4' onSubmit={handleSubmit}>
         <div className='form-outline flex-fill'>
           <input value={title} onChange={(e) => setTitle(e.target.value)} type='text' className='form-control form-control-lg' />

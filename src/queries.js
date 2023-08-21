@@ -1,65 +1,62 @@
 import { gql } from '@apollo/client';
 
+const TASK_FIELDS = gql`
+  fragment TaskFields on Task {
+    id
+    title
+    tags
+    priority
+    createdAt
+    completedAt
+  }
+`;
+
 const GET_TASKS = gql`
+ ${TASK_FIELDS}
   query GetTasks {
     tasks {
-      id
-      title
-      tags
-      priority
-      createdAt
-      completedAt
+      ...TaskFields
     }
   }
 `;
 
 const GET_COMPLETED_TASKS = gql`
+  ${TASK_FIELDS}
   query GetCompletedTasks {
     completedTasks {
-      id
-      title
-      tags
-      priority
-      createdAt
-      completedAt
+      ...TaskFields
     }
   }
 `;
 
 const CREATE_TASK = gql`
+  ${TASK_FIELDS}
   mutation CreateTask($title: String!, $priority: Float!) {
     createTask(input: { title: $title, tags: [], priority: $priority }) {
       task {
-        id
-        title
-        tags
-        priority
+        ...TaskFields
       }
     }
   }
 `;
 
 const COMPLETE_TASK = gql`
+  ${TASK_FIELDS}
   mutation CompleteTask($id: ID!) {
     completeTask(input: { id: $id }) {
       task {
-        id
-        title
-        tags
-        priority
+        ...TaskFields
       }
     }
   }
 `;
 
 const UPDATE_TASK = gql`
+  ${TASK_FIELDS}
   mutation UpdateTask($id: ID!, $priority: Float, $tags: [String!]) {
     updateTask(input: { id: $id, priority: $priority, tags: $tags }) {
       task {
-        id
-        title
-        tags
-        priority
+        ...TaskFields
       }
     }
   }

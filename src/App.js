@@ -6,6 +6,7 @@ import TaskContainer from './TaskContainer';
 import TaskFilter from './TaskFilter';
 import ToptalPR from './Stats/ToptalPR';
 import Tickets from './Stats/Tickets';
+import OpenTasks from './Stats/OpenTasks';
 
 function App() {
   return (
@@ -19,6 +20,12 @@ function App() {
             <hr />
             <Tickets />
             <hr />
+            <Row>
+              <Col xs={{ span: 8, offset: 2 }}>
+                <OpenTasks />
+              </Col>
+            </Row>
+            <hr />
             <div>
               <a href='vnc://0.tcp.ngrok.io:11544' target='_blank' rel='noreferrer'>Access Acorns</a>
             </div>
@@ -30,11 +37,11 @@ function App() {
               </div>
             </DndProvider>
           </Col>
-          <Col xs={3}></Col>
+          <Col xs={3}>
+            <TaskForm />
+          </Col>
         </Row>
       </Container>
-
-      <TaskForm />
     </main>
   );
 }
