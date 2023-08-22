@@ -34,10 +34,10 @@ function CompleteTaskButton({ task: { id } }) {
   });
 
   return (<Button
-    className='btn-sm btn-light btn-outline-dark'
+    className='btn-sm btn-success'
     onClick={() => completeTask(({ variables: { id } }))}
   >
-    Done #{id}
+    <i className='bi bi-check-lg'></i>
   </Button>)
 }
 
