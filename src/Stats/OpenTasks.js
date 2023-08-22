@@ -4,6 +4,7 @@ import {Doughnut} from 'react-chartjs-2';
 import {useQuery} from '@apollo/client';
 import {GET_TASKS} from '../queries';
 import {includes} from 'lodash';
+import {COLOR_ACORNS, COLOR_LULA, COLOR_OTHER, COLOR_STRAKE, COLOR_TASK_MANAGER, COLOR_TOPTAL} from '../colors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -35,9 +36,8 @@ export default function OpenTasks() {
           strakeTasks.length,
           otherTasks.length,
         ],
-        backgroundColor: ['#0dcaf0', '#ffc107', '#20c997', 'red', 'gray', 'white'],
-        borderColor: ['#0dcaf0', '#ffc107', '#20c997', 'red', 'gray', 'white'],
-        borderWidth: 1,
+        backgroundColor: [COLOR_TOPTAL, COLOR_LULA, COLOR_ACORNS, COLOR_TASK_MANAGER, COLOR_STRAKE, COLOR_OTHER],
+        borderWidth: 0,
         cutout: '60%',
         radius: '80%',
       },

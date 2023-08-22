@@ -13,6 +13,7 @@ import {DateTime} from 'luxon';
 import {useQuery} from '@apollo/client';
 import {GET_COMPLETED_TASKS} from '../queries';
 import {includes} from 'lodash';
+import {COLOR_ACORNS, COLOR_LULA, COLOR_TOPTAL} from '../colors';
 
 ChartJS.register(
   CategoryScale,
@@ -74,7 +75,7 @@ export default function Tickets() {
           { length: 7 },
           (_, i) => toptalTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
         ),
-        backgroundColor: '#0dcaf0',
+        backgroundColor: COLOR_TOPTAL,
       },
       {
         label: 'Lula',
@@ -82,7 +83,7 @@ export default function Tickets() {
           { length: 7 },
           (_, i) => lulaTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
         ),
-        backgroundColor: '#ffc107',
+        backgroundColor: COLOR_LULA,
       },
       {
         label: 'Acorns',
@@ -90,7 +91,7 @@ export default function Tickets() {
           { length: 7 },
           (_, i) => acornsTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
         ),
-        backgroundColor: '#20c997',
+        backgroundColor: COLOR_ACORNS,
       },
     ],
   };

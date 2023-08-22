@@ -1,9 +1,18 @@
 import {includes} from 'lodash';
 import {useMutation} from '@apollo/client';
-import {COMPLETE_TASK, GET_COMPLETED_TASKS, GET_TASKS, UPDATE_TASK} from './queries';
 import {useState} from 'react';
 import {Button} from 'react-bootstrap';
+import {DateTime} from 'luxon';
+
+import {COMPLETE_TASK, GET_COMPLETED_TASKS, GET_TASKS, UPDATE_TASK} from './queries';
 import StoryPointsIndicator from './StoryPointsIndicator';
+import {
+  COLOR_ACORNS,
+  COLOR_LULA, COLOR_OTHER, COLOR_STRAKE,
+  COLOR_TASK_MANAGER,
+  COLOR_TOPTAL,
+} from './colors';
+
 
 function CompleteTaskButton({ task: { id } }) {
   const [completeTask] = useMutation(COMPLETE_TASK, {
@@ -49,7 +58,7 @@ function EditTask({ task: { id, tags, priority } }) {
   </form>);
 }
 
-export default function Task({ task: { id, title, tags, priority } }) {
+export default function Task({ task: { id, title, tags, priority, createdAt } }) {
   const getClassName = () => {
     let className = 'card m-3';
 
@@ -57,26 +66,39 @@ export default function Task({ task: { id, title, tags, priority } }) {
       return className + ' bg-danger text-white';
     }
 
-    if (includes(tags, 'toptal')) {
-      return className + ' bg-info';
-    }
-
-    if (includes(tags, 'lula')) {
-      return className + ' bg-warning';
-    }
-
-    if (includes(tags, 'task-manager')) {
-      return className + ' bg-primary text-white';
-    }
-
     return className;
   }
 
+  const getStyle = () => {
+    if (includes(tags, 'toptal')) {
+      return { backgroundColor: COLOR_TOPTAL, color: 'white' };
+    }
+
+    if (includes(tags, 'lula')) {
+      return { backgroundColor: COLOR_LULA, color: '#222' };
+    }
+
+    if (includes(tags, 'acorns')) {
+      return { backgroundColor: COLOR_ACORNS, color: 'white' };
+    }
+
+    if (includes(tags, 'task-manager')) {
+      return { backgroundColor: COLOR_TASK_MANAGER, color: 'white' };
+    }
+
+    if (includes(tags, 'strake')) {
+      return { backgroundColor: COLOR_STRAKE, color: 'white' };
+    }
+
+    return { backgroundColor: COLOR_OTHER, color: '#222' };
+  }
+
   return (
-    <div className={getClassName()}>
+    <div className={getClassName()} style={getStyle()}>
       <div className='card-body p-3 d-flex justify-content-between'>
-        <div>
-          {title}
+        <div className='d-flex flex-column'>
+          <div>{title}</div>
+          <div className='small'>{DateTime.fromISO(createdAt).toISODate()}</div>
         </div>
 
         <div className='d-flex'>
