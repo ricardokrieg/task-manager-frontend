@@ -2,7 +2,6 @@ import {includes} from 'lodash';
 import {useMutation} from '@apollo/client';
 import {useState} from 'react';
 import {Button} from 'react-bootstrap';
-import {DateTime} from 'luxon';
 
 import {COMPLETE_TASK, GET_COMPLETED_TASKS, GET_TASKS, UPDATE_TASK} from './queries';
 import StoryPointsIndicator from './StoryPointsIndicator';
@@ -12,6 +11,7 @@ import {
   COLOR_TASK_MANAGER,
   COLOR_TOPTAL,
 } from './colors';
+import TaskAge from './TaskAge';
 
 
 function CompleteTaskButton({ task: { id } }) {
@@ -98,7 +98,7 @@ export default function Task({ task: { id, title, tags, priority, createdAt } })
       <div className='card-body p-3 d-flex justify-content-between'>
         <div className='d-flex flex-column'>
           <div>{title}</div>
-          <div className='small'>{DateTime.fromISO(createdAt).toISODate()}</div>
+          <TaskAge task={{ createdAt }} />
         </div>
 
         <div className='d-flex'>
