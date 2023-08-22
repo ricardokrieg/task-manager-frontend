@@ -102,9 +102,9 @@ export default function Task({ task: { id, title, tags, priority, createdAt } })
         </div>
 
         <div className='d-flex'>
-          <StoryPointsIndicator task={{ tags }} />
           <EditTask task={{ id, tags, priority }} />
           <CompleteTaskButton task={{ id }} />
+          <StoryPointsIndicator task={{ tags }} />
         </div>
       </div>
     </div>
