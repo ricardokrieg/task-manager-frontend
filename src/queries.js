@@ -66,6 +66,7 @@ const GET_FILTERS = gql`
   query GetFilters {
     filters {
       storyPoints
+      onlyTickets
     }
   }
 `;

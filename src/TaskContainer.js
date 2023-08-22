@@ -11,7 +11,9 @@ export default function TaskContainer() {
   if (error) return <p>Error : {error.message}</p>;
 
   const filterTasks = (tasks, filters) => {
-    return filter(tasks, (t) => includes([...t.tags, null], filters.storyPoints));
+    return filter(
+      tasks,
+      (t) => includes([...t.tags, null], filters.storyPoints) && (filters.onlyTickets === null || includes(t.tags, 'ticket')));
   }
 
   return filterTasks(data.tasks, filtersQuery.data.filters).sort((a, b) => a.priority < b.priority ? -1 : 1).map((task) => (
