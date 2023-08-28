@@ -49,6 +49,17 @@ const getDate = (diff) => {
   return DateTime.now().minus({ day: diff });
 };
 
+const calculatePoints = (tasks) => {
+  return tasks.reduce((acc, task) => taskPoints(task) + acc, 0);
+};
+
+const taskPoints = (task) => {
+  if (includes(task.tags, 'sp-1')) return 1;
+  if (includes(task.tags, 'sp-2')) return 2;
+  if (includes(task.tags, 'sp-3')) return 3;
+  return 0;
+}
+
 export default function Tickets() {
   const { loading, error, data } = useQuery(GET_COMPLETED_TASKS);
 
@@ -64,7 +75,7 @@ export default function Tickets() {
   const lulaTasks = tasks.filter((t) => includes(t.tags, 'lula'));
   const acornsTasks = tasks.filter((t) => includes(t.tags, 'acorns'));
 
-  const labels = Array.from({ length: 7 }, (_, i) => getDate(6 - i).toFormat('ccc'));
+  const labels = Array.from({ length: 14 }, (_, i) => getDate(13 - i).toFormat('ccc'));
 
   const chartData = {
     labels,
@@ -72,24 +83,24 @@ export default function Tickets() {
       {
         label: 'Toptal',
         data: Array.from(
-          { length: 7 },
-          (_, i) => toptalTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
+          { length: 14 },
+          (_, i) => calculatePoints(toptalTasks.filter((t) => t.timestamp.hasSame(getDate(13 - i), 'day')))
         ),
         backgroundColor: COLOR_TOPTAL,
       },
       {
         label: 'Lula',
         data: Array.from(
-          { length: 7 },
-          (_, i) => lulaTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
+          { length: 14 },
+          (_, i) => calculatePoints(lulaTasks.filter((t) => t.timestamp.hasSame(getDate(13 - i), 'day')))
         ),
         backgroundColor: COLOR_LULA,
       },
       {
         label: 'Acorns',
         data: Array.from(
-          { length: 7 },
-          (_, i) => acornsTasks.filter((t) => t.timestamp.hasSame(getDate(6 - i), 'day')).length
+          { length: 14 },
+          (_, i) => calculatePoints(acornsTasks.filter((t) => t.timestamp.hasSame(getDate(13 - i), 'day')))
         ),
         backgroundColor: COLOR_ACORNS,
       },

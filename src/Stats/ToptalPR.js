@@ -3,7 +3,7 @@ import {useQuery} from '@apollo/client';
 import {GET_COMPLETED_TASKS} from '../queries';
 import {includes} from 'lodash';
 import {DateTime} from 'luxon';
-import {COLOR_OTHER, COLOR_TOPTAL} from '../colors';
+import {COLOR_STRAKE, COLOR_TOPTAL} from '../colors';
 
 const barWidth = (tasks) => {
   return (tasks.length / 20) * 100;
@@ -31,7 +31,7 @@ export default function ToptalPR() {
         <div>
           <ProgressBar>
             <ProgressBar now={barWidth(month)} min={0} max={100} style={{ backgroundColor: COLOR_TOPTAL }} />
-            <ProgressBar now={barWidth(today)} min={0} max={100} style={{ backgroundColor: COLOR_OTHER }} />
+            <ProgressBar now={barWidth(today)} min={0} max={100} style={{ backgroundColor: COLOR_STRAKE }} />
           </ProgressBar>
         </div>
       </Row>
