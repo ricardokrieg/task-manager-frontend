@@ -27,7 +27,7 @@ function App() {
             </Row>
             <hr />
             <div>
-              <a href='vnc://0.tcp.ngrok.io:11544' target='_blank' rel='noreferrer'>Access Acorns</a>
+              <a href='vnc://8.tcp.ngrok.io:17952' target='_blank' rel='noreferrer'>Access Acorns</a>
             </div>
           </Col>
           <Col xs={6}>
