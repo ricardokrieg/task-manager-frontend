@@ -13,10 +13,13 @@ export default function TaskContainer() {
   const filterTasks = (tasks, filters) => {
     return filter(
       tasks,
-      (t) => includes([...t.tags, null], filters.storyPoints) && (filters.onlyTickets === null || includes(t.tags, 'ticket')));
+      (t) => includes([...t.tags, null], filters.storyPoints) && (filters.onlyTickets === null || includes(t.tags, 'ticket')) && includes([...t.tags, null], filters.project));
   }
 
-  return filterTasks(data.tasks, filtersQuery.data.filters).sort((a, b) => a.priority < b.priority ? -1 : 1).map((task) => (
+  const filteredTasks = filterTasks(data.tasks, filtersQuery.data.filters);
+  const sortedTasks = filteredTasks.sort((a, b) => a.priority < b.priority ? -1 : 1);
+
+  return sortedTasks.map((task) => (
     <Task key={task.id} task={task} />
   ));
 }
