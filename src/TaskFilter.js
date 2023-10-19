@@ -1,49 +1,67 @@
-import {Button, Col, Container, Row} from 'react-bootstrap';
-import {useApolloClient} from '@apollo/client';
+import {Container, Form, Row} from 'react-bootstrap';
+import {useApolloClient, useQuery} from '@apollo/client';
 import {GET_FILTERS} from './queries';
 
 export default function TaskFilter() {
   const client = useApolloClient();
+  const filtersQuery = useQuery(GET_FILTERS);
 
-  const filterBySP = (sp) => {
+  if (!filtersQuery.data) return '';
+
+  const filterBySP = (id) => {
+    const storyPoints = id === 'sp-all' ? null : id;
+
     client.cache.updateQuery({ query: GET_FILTERS }, () => ({
-      filters: { storyPoints: sp, onlyTickets: null, project: null }
+      filters: { ...filtersQuery.data.filters, storyPoints }
     }));
   }
 
-  const filterByTicket = (onlyTickets) => {
+  const filterByTicket = (id) => {
+    const onlyTickets = id === 'tickets-all' ? null : true;
+
     client.cache.updateQuery({ query: GET_FILTERS }, () => ({
-      filters: { storyPoints: null, onlyTickets, project: null }
+      filters: { ...filtersQuery.data.filters, onlyTickets }
     }));
   }
 
-  const filterByProject = (project) => {
+  const filterByProject = (id) => {
+    const project = id === 'project-all' ? null : id.replace('project-', '');
+
     client.cache.updateQuery({ query: GET_FILTERS }, () => ({
-      filters: { storyPoints: null, onlyTickets: null, project }
+      filters: { ...filtersQuery.data.filters, project }
     }));
   }
 
   return (
     <Container>
       <Row>
-        <Col><Button onClick={() => filterBySP(null)}>All</Button></Col>
-        <Col><Button onClick={() => filterBySP('sp-1')}>1</Button></Col>
-        <Col><Button onClick={() => filterBySP('sp-2')}>2</Button></Col>
-        <Col><Button onClick={() => filterBySP('sp-3')}>3</Button></Col>
+        <h6>Story Points</h6>
+        <Form onChange={(event) => filterBySP(event.target.id)}>
+          <Form.Check inline label='All' name='sp' type='radio' id='sp-all' defaultChecked={true} />
+          <Form.Check inline label='1' name='sp' type='radio' id='sp-1' />
+          <Form.Check inline label='2' name='sp' type='radio' id='sp-2' />
+          <Form.Check inline label='3' name='sp' type='radio' id='sp-3' />
+        </Form>
       </Row>
 
       <Row>
-        <Col><Button onClick={() => filterByTicket(null)}>All</Button></Col>
-        <Col><Button onClick={() => filterByTicket(true)}>Only Tickets</Button></Col>
+        <h6>Tickets</h6>
+        <Form onChange={(event) => filterByTicket(event.target.id)}>
+          <Form.Check inline label='All' name='tickets' type='radio' id='tickets-all' defaultChecked={true} />
+          <Form.Check inline label='Only Tickets' name='tickets' type='radio' id='tickets-1' />
+        </Form>
       </Row>
 
       <Row>
-        <Col><Button onClick={() => filterByProject(null)}>All</Button></Col>
-        <Col><Button onClick={() => filterByProject('toptal')}>Toptal</Button></Col>
-        <Col><Button onClick={() => filterByProject('lula')}>Lula</Button></Col>
-        <Col><Button onClick={() => filterByProject('acorns')}>Acorns</Button></Col>
-        <Col><Button onClick={() => filterByProject('strake')}>Strake</Button></Col>
-        <Col><Button onClick={() => filterByProject('task-manager')}>Task Manager</Button></Col>
+        <h6>Project</h6>
+        <Form onChange={(event) => filterByProject(event.target.id)}>
+          <Form.Check inline label='All' name='project' type='radio' id='project-all' defaultChecked={true} />
+          <Form.Check inline label='Toptal' name='project' type='radio' id='project-toptal' />
+          <Form.Check inline label='Lula' name='project' type='radio' id='project-lula' />
+          <Form.Check inline label='Acorns' name='project' type='radio' id='project-acorns' />
+          <Form.Check inline label='Strake' name='project' type='radio' id='project-strake' />
+          <Form.Check inline label='Task Manager' name='project' type='radio' id='project-task-manager' />
+        </Form>
       </Row>
     </Container>
   );
