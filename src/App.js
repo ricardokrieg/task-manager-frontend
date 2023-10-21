@@ -7,6 +7,7 @@ import TaskFilter from './TaskFilter';
 import ToptalPR from './Stats/ToptalPR';
 import Tickets from './Stats/Tickets';
 import OpenTasks from './Stats/OpenTasks';
+import ToptalSprint from './Stats/ToptalSprint';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
             <TaskFilter />
             <hr />
             <ToptalPR />
+            <hr />
+            <ToptalSprint />
             <hr />
             <Tickets />
             <hr />

@@ -42,7 +42,15 @@ const buildDates = (startDate, endDate) => {
   return dates;
 }
 
-export default function ToptalPR() {
+const calculateStoryPoints = (task) => {
+  if (task.tags.includes('sp-1')) return 1;
+  if (task.tags.includes('sp-2')) return 2;
+  if (task.tags.includes('sp-3')) return 3;
+
+  return 0;
+}
+
+export default function ToptalSprint() {
   const { loading, error, data } = useQuery(GET_COMPLETED_TASKS);
 
   if (loading) return <p>Loading...</p>;
@@ -50,11 +58,11 @@ export default function ToptalPR() {
 
   const tasks = data
     .completedTasks
-    .filter((t) => includes(t.tags, 'toptal') && includes(t.tags, 'pr'))
-    .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt)}));
+    .filter((t) => includes(t.tags, 'toptal') && includes(t.tags, 'ticket'))
+    .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt), storyPoints: calculateStoryPoints(t)}));
 
-  const startDate = DateTime.now().startOf('month');
-  const endDate = DateTime.now().endOf('month');
+  const startDate = DateTime.fromISO('2023-08-29');
+  const endDate = DateTime.fromISO('2023-09-11');
   const dates = buildDates(startDate, endDate);
 
   const chartData = {
@@ -62,13 +70,13 @@ export default function ToptalPR() {
     datasets: [
       {
         label: 'Actual',
-        data: dates.filter((date) => date <= DateTime.now()).map((date) => tasks.reduce((acc, t) => t.timestamp >= startDate && t.timestamp <= date.endOf('day') ? acc + 1 : acc, 0)),
+        data: dates.filter((date) => date <= DateTime.now()).map((date) => tasks.reduce((acc, t) => t.timestamp >= startDate && t.timestamp <= date.endOf('day') ? acc + t.storyPoints : acc, 0)),
         borderColor: COLOR_TOPTAL,
         backgroundColor: COLOR_TOPTAL,
       },
       {
         label: 'Target',
-        data: Array.from({ length: dates.length }, (_, i) => i + 1),
+        data: [1, ...Array.from({ length: 8 }, () => null), 15],
         borderColor: COLOR_OTHER,
         backgroundColor: COLOR_OTHER,
       },
@@ -87,7 +95,7 @@ export default function ToptalPR() {
         },
         title: {
           display: true,
-          text: 'Toptal External PRs',
+          text: 'Toptal Sprint',
         },
       },
     }}
