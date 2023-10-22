@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 
-import {COLOR_OTHER, COLOR_TOPTAL} from '../colors';
+import {COLOR_ACORNS, COLOR_OTHER} from '../colors';
 import {DateTime} from 'luxon';
 import {useQuery} from '@apollo/client';
 import {GET_COMPLETED_TASKS} from '../queries';
@@ -50,7 +50,7 @@ const calculateStoryPoints = (task) => {
   return 0;
 }
 
-export default function ToptalSprint() {
+export default function AcornsSprint() {
   const { loading, error, data } = useQuery(GET_COMPLETED_TASKS);
 
   if (loading) return <p>Loading...</p>;
@@ -58,11 +58,11 @@ export default function ToptalSprint() {
 
   const tasks = data
     .completedTasks
-    .filter((t) => includes(t.tags, 'toptal') && includes(t.tags, 'ticket'))
+    .filter((t) => includes(t.tags, 'acorns') && includes(t.tags, 'ticket'))
     .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt), storyPoints: calculateStoryPoints(t)}));
 
-  const startDate = DateTime.fromISO('2023-09-12');
-  const endDate = DateTime.fromISO('2023-09-25');
+  const startDate = DateTime.fromISO('2023-09-11');
+  const endDate = DateTime.fromISO('2023-09-15');
   const dates = buildDates(startDate, endDate);
 
   const chartData = {
@@ -71,12 +71,12 @@ export default function ToptalSprint() {
       {
         label: 'Actual',
         data: dates.filter((date) => date <= DateTime.now()).map((date) => tasks.reduce((acc, t) => t.timestamp >= startDate && t.timestamp <= date.endOf('day') ? acc + t.storyPoints : acc, 0)),
-        borderColor: COLOR_TOPTAL,
-        backgroundColor: COLOR_TOPTAL,
+        borderColor: COLOR_ACORNS,
+        backgroundColor: COLOR_ACORNS,
       },
       {
         label: 'Target',
-        data: [1, ...Array.from({ length: 8 }, () => null), 15],
+        data: [1, ...Array.from({ length: 8 }, () => null), 10],
         borderColor: COLOR_OTHER,
         backgroundColor: COLOR_OTHER,
       },
@@ -95,7 +95,7 @@ export default function ToptalSprint() {
         },
         title: {
           display: true,
-          text: 'Toptal Sprint',
+          text: 'Acorns Sprint',
         },
       },
     }}

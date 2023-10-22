@@ -8,6 +8,8 @@ import ToptalPR from './Stats/ToptalPR';
 import Tickets from './Stats/Tickets';
 import OpenTasks from './Stats/OpenTasks';
 import ToptalSprint from './Stats/ToptalSprint';
+import LulaSprint from './Stats/LulaSprint';
+import AcornsSprint from './Stats/AcornsSprint';
 
 function App() {
   return (
@@ -20,6 +22,10 @@ function App() {
             <ToptalPR />
             <hr />
             <ToptalSprint />
+            <hr />
+            <LulaSprint />
+            <hr />
+            <AcornsSprint />
             <hr />
             <Tickets />
             <hr />
