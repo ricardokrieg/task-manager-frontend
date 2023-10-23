@@ -76,7 +76,7 @@ export default function AcornsSprint() {
       },
       {
         label: 'Target',
-        data: [1, ...Array.from({ length: 8 }, () => null), 10],
+        data: [1, ...Array.from({ length: 3 }, () => null), 10],
         borderColor: COLOR_OTHER,
         backgroundColor: COLOR_OTHER,
       },

@@ -17,8 +17,6 @@ function App() {
       <Container fluid>
         <Row>
           <Col xs={3}>
-            <TaskFilter />
-            <hr />
             <ToptalPR />
             <hr />
             <ToptalSprint />
@@ -47,6 +45,8 @@ function App() {
             </DndProvider>
           </Col>
           <Col xs={3}>
+            <TaskFilter />
+            <hr />
             <TaskForm />
           </Col>
         </Row>
