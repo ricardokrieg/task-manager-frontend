@@ -25,14 +25,6 @@ function App() {
             <hr />
             <AcornsSprint />
             <hr />
-            <Tickets />
-            <hr />
-            <Row>
-              <Col xs={{ span: 8, offset: 2 }}>
-                <OpenTasks />
-              </Col>
-            </Row>
-            <hr />
             <div>
               <a href='vnc://8.tcp.ngrok.io:17952' target='_blank' rel='noreferrer'>Access Acorns</a>
             </div>
