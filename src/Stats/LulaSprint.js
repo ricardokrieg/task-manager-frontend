@@ -61,8 +61,8 @@ export default function LulaSprint() {
     .filter((t) => includes(t.tags, 'lula') && includes(t.tags, 'ticket'))
     .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt), storyPoints: calculateStoryPoints(t)}));
 
-  const startDate = DateTime.fromISO('2023-09-05');
-  const endDate = DateTime.fromISO('2023-09-18');
+  const startDate = DateTime.fromISO('2023-09-06');
+  const endDate = DateTime.fromISO('2023-09-19');
   const dates = buildDates(startDate, endDate);
 
   const chartData = {

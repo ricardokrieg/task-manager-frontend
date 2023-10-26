@@ -61,8 +61,8 @@ export default function AcornsSprint() {
     .filter((t) => includes(t.tags, 'acorns') && includes(t.tags, 'ticket'))
     .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt), storyPoints: calculateStoryPoints(t)}));
 
-  const startDate = DateTime.fromISO('2023-09-11');
-  const endDate = DateTime.fromISO('2023-09-15');
+  const startDate = DateTime.now().startOf('week');
+  const endDate = DateTime.now().endOf('week');
   const dates = buildDates(startDate, endDate);
 
   const chartData = {

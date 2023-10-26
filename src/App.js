@@ -5,8 +5,6 @@ import TaskForm from './TaskForm';
 import TaskContainer from './TaskContainer';
 import TaskFilter from './TaskFilter';
 import ToptalPR from './Stats/ToptalPR';
-import Tickets from './Stats/Tickets';
-import OpenTasks from './Stats/OpenTasks';
 import ToptalSprint from './Stats/ToptalSprint';
 import LulaSprint from './Stats/LulaSprint';
 import AcornsSprint from './Stats/AcornsSprint';
