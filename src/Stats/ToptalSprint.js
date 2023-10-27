@@ -61,8 +61,8 @@ export default function ToptalSprint() {
     .filter((t) => includes(t.tags, 'toptal') && includes(t.tags, 'ticket'))
     .map((t) => ({...t, timestamp: DateTime.fromISO(t.completedAt), storyPoints: calculateStoryPoints(t)}));
 
-  const startDate = DateTime.fromISO('2023-09-12');
-  const endDate = DateTime.fromISO('2023-09-25');
+  const startDate = DateTime.fromISO('2023-09-26');
+  const endDate = DateTime.fromISO('2023-10-09');
   const dates = buildDates(startDate, endDate);
 
   const chartData = {
@@ -76,7 +76,7 @@ export default function ToptalSprint() {
       },
       {
         label: 'Target',
-        data: [1, ...Array.from({ length: 8 }, () => null), 15],
+        data: [1, ...Array.from({ length: 8 }, () => null), 20],
         borderColor: COLOR_OTHER,
         backgroundColor: COLOR_OTHER,
       },

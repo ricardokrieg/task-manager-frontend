@@ -7,7 +7,6 @@ import TaskFilter from './TaskFilter';
 import ToptalPR from './Stats/ToptalPR';
 import ToptalSprint from './Stats/ToptalSprint';
 import LulaSprint from './Stats/LulaSprint';
-import AcornsSprint from './Stats/AcornsSprint';
 
 function App() {
   return (
@@ -21,11 +20,6 @@ function App() {
             <hr />
             <LulaSprint />
             <hr />
-            <AcornsSprint />
-            <hr />
-            <div>
-              <a href='vnc://8.tcp.ngrok.io:17952' target='_blank' rel='noreferrer'>Access Acorns</a>
-            </div>
           </Col>
           <Col xs={6}>
             <DndProvider backend={HTML5Backend}>
